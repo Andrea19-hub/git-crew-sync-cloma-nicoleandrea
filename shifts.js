@@ -3,15 +3,17 @@ function isValidShift(hours) {
 }
 
 function calculatePay(hours, rate) {
+  if (hours < 0 || rate < 0) {
+    throw new Error("Hours and rate cannot be negative");
+  }
+
   const regularHours = Math.min(hours, 8);
   const overtimeHours = Math.max(hours - 8, 0);
-  const overtimeMultiplier = 1.5;
 
-  const totalPay =
+  return Math.floor(
     regularHours * rate +
-    overtimeHours * rate * overtimeMultiplier;
-
-  return Math.round(totalPay);
+    overtimeHours * rate * 1.5
+  );
 }
 
 module.exports = { isValidShift, calculatePay };
